@@ -1,0 +1,28 @@
+DirectoryIndex index.htm index.php
+
+RewriteEngine on
+
+#RewriteCond %{HTTPS} off
+#RewriteRule Cpanel/.*$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+#RewriteRule marketplace/cart.php$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+#RewriteRule marketplace/order.php$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+
+# %{HTTP_REFERER} == ^http://(www.)?example.com/.*$
+# RewriteCond %{HTTP_REFERER} !^$
+RewriteCond %{REQUEST_URI} !index.htm$
+RewriteCond %{REQUEST_URI} !index.php$
+RewriteCond %{REQUEST_URI} !includes/.*$
+RewriteCond %{REQUEST_URI} !portals/.*$
+RewriteCond %{REQUEST_URI} !Cpanel/.*$
+RewriteCond %{REQUEST_URI} !play/.*$
+RewriteRule ^(.*)$ index.php
+
+
+ErrorDocument 404 /index.php
+
+#Gzip
+<ifmodule mod_deflate.so>
+AddOutputFilterByType DEFLATE text/text text/html text/plain text/xml text/css application/x-javascript application/javascript text/javascript
+</ifmodule>
+#End Gzip

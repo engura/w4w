@@ -1,0 +1,188 @@
+; This is the general config file for the website. This file needs to be
+; configured prior to the first execution of the website.
+; The value can be a string, a number, a PHP constant (e.g. E_ALL or M_PI), one
+; of the INI constants (On, Off, True, False, Yes, No and None) or an expression
+; (e.g. E_ALL & ~E_NOTICE), a quoted string ("bar"), or a reference to a
+; previously set variable or directive (e.g. ${foo})
+
+
+;;;;;;;;;;;;;;;; INSTRUCTIONS ;;;;;;;;;;;;;;;;;;;;;;;
+; Expressions in the INI file are limited to bitwise operators and parentheses:
+; |  bitwise OR
+; ^  bitwise XOR
+; &  bitwise AND
+; ~  bitwise NOT
+; !  boolean NOT
+
+; Boolean flags can be turned on using the values 1, On, True or Yes.
+; They can be turned off using the values 0, Off, False or No.
+
+; An empty string can be denoted by simply not writing anything after the equal
+; sign, or by using the None keyword:
+
+;  foo =         ; sets foo to an empty string
+;  foo = None    ; sets foo to an empty string
+;  foo = "None"  ; sets foo to the string 'None'
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; the main email account that will be put in the "from" field when sending from
+; the web forms, and it will also receive the emails from web forms on the site.
+adminEmail = "webmaster@engura.com"
+
+; these pages are always looked within the website's default language, unless
+; forced otherwise
+defaultPage = "index"
+defaultLoginPage = "Cpanel"
+
+; the social variables are used to populate the social sharing buttons.
+; remove a screenname from the variable to disable that social media's Following.
+; (ie don't delete the variables themselves please)
+; facebook's screen name. appears after URL --> https://www.facebook.com/vglytenko
+; twitter's login/account: @whatev:
+; this is the "profile id" that shows up like --> http://plus.google.com/xxxxxxx
+; Use any social networks' name supported by the ShareThis library!
+; Order of this array determines the order of social buttons on the site!
+socLrgBtn = Off ; domaintoolswhois ; whois lookup! :P
+social[] = "facebook" ; This one acts as Facebook's Share but different icon
+social[] = "facebook_like" ; fb like and recommend are the same thing
+; social[] = "facebook_follow" ; fb like signs people up for following by default
+;facebook = "proteacafe"
+social[] = "twitter"
+; social[] = "twitter_follow"
+;social[] = "twitter_follow_native"
+;twitter = "proteacafe"
+social[] = "google_plusone_share"
+; social[] = "google_follow"
+; google = "106699228818551482324"
+; social[] = "linkedin"
+social[] = "pinterest_share"
+; social[] = "pinterest_follow"
+; pinterest = ""
+; social[] = "vk" ; vkontakte
+; social[] = "vkrugudruzei"
+; social[] = "odnoklassniki_ru"
+; social[] = "delicious"
+; social[] = "tumblr"
+; social[] = "digg"
+social[] = "email"
+; social[] = "print"
+
+; Portal is the selector of the "website" that the server will run. If any required
+; files for the template are missing, the System portal will be checked for an
+; equivalent file before displaying a 404.
+portal = "showemgmt"
+
+; Main template of the site. It IS case sensitive. [just like every other field]
+; in the Portals directory, these are all with .html extensions
+theme = "showemgmt2"
+
+
+; Default Language of the site. Default to English, of course ;) This has to be
+; the ISO_3166 two-letter country code. There is a complete list of them recorded
+; at http://en.wikipedia.org/wiki/ISO_3166-2.
+language = "en"
+
+; if set to On, language debuggins is turned on & any interface items that have associated
+; localizations will be highlighted with **stars** around them. If there are localizations missing
+; for a particular element, the **stars** change to ??question marks??
+langDebug = Off
+
+;;;;;; MEMBERS' CONFIGURATION FOLLOWS ;;;;;;
+; should we allow users to create their own accounts online, or do they have
+; to do that in person with the company? -- only Level 1 accts may be self-made
+accountCreation = On
+
+
+; Following fields relate both to on-site Registration and also Settings page:
+; options: extendedInfo required? yes|no
+extendedInfo = No
+
+; If this is set to yes, then the new 'paidfor' field in 'members', will be checked
+; if that field is empty, then 403 will be generated.
+accountsExpire = No
+
+
+;;;;;;;;;;;;;;;;;;;;;;;
+; allow user file upload?--from within their Settings' page?
+; configure permissions: any level has the ability to post, but:
+; levels above 1 can be customized to have various amounts of access to the
+; Cpanel scripts:
+; Level 0: super_user; no restrictions. must have at least 1 acct in the
+; 				database of this level; moreover, one of these accts must also have
+; 				the same name as the one hardcoded within .htconf
+; Level 1: n/a -> the only level that can be created through web-form;
+; 							all others must be created through cpanel by third person.
+; Level 2: list of scripts that are accessible: EX: create.php dictionary.php
+; Level 3: not implemented; customizable
+; Level 4: 0 == NULL, not configured for use; can't create users at this Level
+fileUpload = Yes
+maxSize = 10000000 ; in bytes
+
+level2 = "create.php htconfig.php dict_config.php members.php"
+level3 = None
+level4 = None
+level5 = None
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;
+; These 4 lines enable or disable the available portals...
+; Shall we use any of these features?
+forumPortal = On
+wikiPortal = On
+; Possible options are Yes, No, Facebook
+allowComments = Facebook
+
+marketPortal = On
+; Can users leave feedback on products?
+marketComments = On
+marketMenu = On
+showDiscounts = Off ; shows MSRP & crosses it out if price is lower
+
+;;;;;;;;;;;;;;;;;;;;;;;;
+; CommerceSupplier refers to the user-level number which will be designated
+; and automatically seen as "Marketplace Suppliers" by the system
+supplierLevel = 3
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;
+; to post blog *articles*, a login is *always* required
+; RecentChanges controls the number of entries shown in index & user's info,
+; and the number of days that wiki's Recent Changes pages show.
+; ShowIcons: are extraneous icons displayd next to Home, map, search, create, etc links?
+recentChanges = 6
+showIcons = No
+showDateModified = Yes
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;
+; Gallery-related settings:
+; ThumbHeight and ...Width define the outer bounds (in Pixels) of the thumbnails:
+; all images are scaled uniformly, so the aspect ratio of thumbnails WILL NOT BE MESSED UP.
+; To refresh the thumbnail size for all galleries,
+; one must delete the old thumbnails first, because the program sees whether thumbnails
+; exist yet, and if they do (regardless of their size), it will leave them alone.
+rows = 5
+columns = 4
+thumbHeight = 150
+thumbWidth = 150
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;
+; RSS Feeds that are parsed by rss.php reader:
+rssFeeds[] = "http://feeds.reuters.com/reuters/USVideoBusiness?format=xml"
+rssFeeds[] = "http://rss.cnn.com/rss/money_topstories.rss"
+rssFeeds[] = "http://feeds.reuters.com/reuters/businessNews?format=xml"
+
+
+
+;;;;;;;;;;;;;;;;;;;;; MySQL Info: ;;;;;;;;;;;;;;;;;;;;;;
+; Please refer to your provider for the information on the following fields.
+; They should be given to you along with a MySQL account.
+
+serverName = "localhost"
+username = "adventur_hikage"
+password = "p@s$w0rd"
+database = "adventur_engura"
